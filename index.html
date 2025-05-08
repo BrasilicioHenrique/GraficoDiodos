@@ -43,7 +43,7 @@
                     document.getElementById("texto").innerHTML =
                     `<h2>Gráfico de uma Função Seno</h2> 
                     <p>Gráfico que aparece no ociloscópio quando mede tensão / tempo</p>`;
-                    for (let i = -100; i <= 100; i += 0.0001) {
+                    for (let i = -100; i <= 100; i += 0.001) {
                         coordenadasx.push(i);
                         coordenadasy.push(A + B * Math.sin(C * i + D));
                     }
@@ -62,8 +62,8 @@
                     `<h2>Gráfico Diodo Retificador</h2> 
                     <p>Em um circuito de CA um único diodo só deixa passar corrente no fluxo certo (diretamente polarizado),
                         então quando o sinal da tensão for negativo, a corrente é 0. É um gráfico de meia onda completa.</p>`;
-                    for (let i = -100; i <= 100; i += 0.0001) {
-                        sinalTensao = A + B * Math.sin(C * i + D)
+                    for (let i = -100; i <= 100; i += 0.001) {
+                        let sinalTensao = A + B * Math.sin(C * i + D)
                         if (i < 0) {
                             coordenadasx.push(0);
                             coordenadasy.push(0);
@@ -91,8 +91,8 @@
                     `<h2>Gráfico Diodo Retificador em Ponte</h2>
                     <p>A estrutura de quatro diodos em ponte permite transformação da tensão em ondas completas</p>`;
 
-                    for (let i = -100; i <= 100; i += 0.0001) {
-                        sinalTensao = A + B * Math.sin(C * i + D)
+                    for (let i = -100; i <= 100; i += 0.001) {
+                        let sinalTensao = A + B * Math.sin(C * i + D)
                         if (i < 0) {
                             coordenadasx.push(0);
                             coordenadasy.push(0);
