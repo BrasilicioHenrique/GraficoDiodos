@@ -34,6 +34,8 @@
             let dados = [];
             let layout = [];
 
+            let tensaoZenner = 0;
+
             const A = 0;
             const B = 2; // tensão
             const C = 22; // frecuencia
@@ -121,7 +123,7 @@
                     `<h2>Gráfico Diodo Zenner de onda completa</h2>
                     <p>Depois dos diodos em ponte, tem um diodo zenner que regula a tensão máxima da onda</p>`;
 
-                    let tensaoZenner = 1.5;
+                    tensaoZenner = 1.5;
                     for (let i = -100; i <= 100; i += 0.001) {
                         let sinalTensao = A + B * Math.sin(C * i + D)
                         if (i < 0) {
@@ -214,10 +216,14 @@
                     }
 
                     dados = [{x: coordenadasx, y: coordenadasy, mode: 'lines', line: {color: 'blue'}}];
+                    dados.push({x: [0, 0.7008, 1],  y: [2, 0.5985, 0], mode: 'lines', line: {color: 'black'}});
+                    dados.push({x: [0.7008], y: [0.5985], mode: "markers+text", text: "Q", textposition: "top-right", marker: {color: 'black'}});
+
                     layout = {
                         title: 'Gráfico Diodo Real',
                         xaxis: {title: 'Tensão (V)', range: [-1, 1], zeroline: true},
-                        yaxis: {title: 'Corrente (A)', range: [-1, 2], zeroline: true}
+                        yaxis: {title: 'Corrente (A)', range: [-1, 2], zeroline: true},
+                        showlegend: false
                     };
                     Plotly.newPlot('grafico', dados, layout);
                     break;
@@ -228,12 +234,12 @@
                     <p>Diodo que funciona normalmente quando polarizado diretamente, mas quando é inversamente, ele conduz quando chega no Vz.</p>`;
 
                     tensaoZenner = -1;
-                    for (let i = -3; i <= 3; i += 0.01) {
+                    for (let i = -1.2; i <= 1.2; i += 0.01) {
                         coordenadasx.push(i);
                         if (i >= 0) {
                             coordenadasy.push(1e-12 * (Math.exp(i / 0.02585) - 1));
                         } else if (i <= tensaoZenner) {
-                            coordenadasy.push(-1e-3 * (Math.exp((Math.abs(i) - Math.abs(tensaoZ)) / 0.01) - 1));
+                            coordenadasy.push(-1e-3 * (Math.exp((Math.abs(i) - Math.abs(tensaoZenner)) / 0.01) - 1));
                         } else {
                             coordenadasy.push(1e-12);
                         }
