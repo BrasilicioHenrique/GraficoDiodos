@@ -1,5 +1,5 @@
 var tensaoSeno = 2;
-var hzSeno = 22;
+var hzSeno = 2;
 var tensaoZenner = -1;
 var tensaoDiodo = 0.7;
 
@@ -20,11 +20,11 @@ function desenharGrafico(button) {
                 coordenadasy.push(tensaoSeno * Math.sin(hzSeno * i));
             }
 
-            dados = [{ x: coordenadasx, y: coordenadasy, mode: 'lines', line: { color: 'blue' } }];
+            dados = [{x: coordenadasx, y: coordenadasy, mode: 'lines', line: {color: 'blue'}}];
             layout = {
                 title: 'Gráfico f(x) = Tensao * seno(Frequencia * x)',
-                xaxis: { title: 'X', range: [-0.25, 1], zeroline: true },
-                yaxis: { title: 'Y', range: [-3, 3], zeroline: true }
+                xaxis: {title: 'X', range: [-2, 10], zeroline: true},
+                yaxis: {title: 'Y', range: [-3, 3], zeroline: true}
             };
             Plotly.newPlot('grafico', dados, layout);
             break;
@@ -49,11 +49,11 @@ function desenharGrafico(button) {
                 }
             }
 
-            dados = [{ x: coordenadasx, y: coordenadasy, mode: 'lines', line: { color: 'blue' } }];
+            dados = [{x: coordenadasx, y: coordenadasy, mode: 'lines', line: {color: 'blue'}}];
             layout = {
                 title: 'Gráfico de Meia Onda Completa',
-                xaxis: { title: 'Tempo', range: [-0.25, 1], zeroline: true },
-                yaxis: { title: 'Tensão (V)', range: [-3, 3], zeroline: true }
+                xaxis: {title: 'X', range: [-2, 10], zeroline: true},
+                yaxis: {title: 'Tensão (V)', range: [-3, 3], zeroline: true}
             };
             Plotly.newPlot('grafico', dados, layout);
             break;
@@ -78,11 +78,11 @@ function desenharGrafico(button) {
                 }
             }
 
-            dados = [{ x: coordenadasx, y: coordenadasy, mode: 'lines', line: { color: 'blue' } }];
+            dados = [{x: coordenadasx, y: coordenadasy, mode: 'lines', line: {color: 'blue'}}];
             layout = {
                 title: 'Gráfico de Onda Completa',
-                xaxis: { title: 'Tempo', range: [-0.25, 1], zeroline: true },
-                yaxis: { title: 'Tensão (V)', range: [-3, 3], zeroline: true }
+                xaxis: {title: 'X', range: [-2, 10], zeroline: true},
+                yaxis: {title: 'Tensão (V)', range: [-3, 3], zeroline: true}
             };
             Plotly.newPlot('grafico', dados, layout);
             break;
@@ -112,11 +112,11 @@ function desenharGrafico(button) {
                 }
             }
 
-            dados = [{ x: coordenadasx, y: coordenadasy, mode: 'lines', line: { color: 'blue' } }];
+            dados = [{x: coordenadasx, y: coordenadasy, mode: 'lines', line: {color: 'blue'}}];
             layout = {
                 title: 'Gráfico de Onda Completa',
-                xaxis: { title: 'Tempo', range: [-0.25, 1], zeroline: true },
-                yaxis: { title: 'Tensão (V)', range: [-3, 3], zeroline: true }
+                xaxis: {title: 'X', range: [-2, 10], zeroline: true},
+                yaxis: {title: 'Tensão (V)', range: [-3, 3], zeroline: true}
             };
             Plotly.newPlot('grafico', dados, layout);
             break;
@@ -137,11 +137,11 @@ function desenharGrafico(button) {
                 }
             }
 
-            dados = [{ x: coordenadasx, y: coordenadasy, mode: 'lines', line: { color: 'blue' } }];
+            dados = [{x: coordenadasx, y: coordenadasy, mode: 'lines', line: {color: 'blue'}}];
             layout = {
                 title: "Gráfico Diodo Ideal",
-                xaxis: { title: "Tensão (V)", range: [-1, 1], zeroline: true },
-                yaxis: { title: "Corrente (A)", range: [-1, 2], zeroline: true }
+                xaxis: {title: "Tensão (V)", range: [-1, 1], zeroline: true},
+                yaxis: {title: "Corrente (A)", range: [-1, 2], zeroline: true}
             };
             Plotly.newPlot('grafico', dados, layout);
             break;
@@ -161,11 +161,11 @@ function desenharGrafico(button) {
                 }
             }
 
-            dados = [{ x: coordenadasx, y: coordenadasy, mode: 'lines', line: { color: 'blue' } }];
+            dados = [{x: coordenadasx, y: coordenadasy, mode: 'lines', line: {color: 'blue'}}];
             layout = {
                 title: "Gráfico Diodo",
-                xaxis: { title: "Tensão (V)", range: [-1, 1], zeroline: true },
-                yaxis: { title: "Corrente (A)", range: [-1, 2], zeroline: true }
+                xaxis: {title: "Tensão (V)", range: [-1, 1], zeroline: true},
+                yaxis: {title: "Corrente (A)", range: [-1, 2], zeroline: true}
             };
             Plotly.newPlot('grafico', dados, layout);
             break;
@@ -179,14 +179,14 @@ function desenharGrafico(button) {
                 coordenadasy.push(1e-12 * (Math.exp(i / 0.02585) - 1));
             }
 
-            dados = [{ x: coordenadasx, y: coordenadasy, mode: 'lines', line: { color: 'blue' } }];
-            dados.push({ x: [0, 0.7008, 1], y: [2, 0.5985, 0], mode: 'lines', line: { color: 'black' } });
-            dados.push({ x: [0.7008], y: [0.5985], mode: "markers+text", text: "Q", textposition: "top-right", marker: { color: 'black' } });
+            dados = [{x: coordenadasx, y: coordenadasy, mode: 'lines', line: {color: 'blue'}}];
+            dados.push({x: [0, 0.7008, 1], y: [2, 0.5985, 0], mode: 'lines', line: { color: 'black'}});
+            dados.push({x: [0.7008], y: [0.5985], mode: "markers+text", text: "Q", textposition: "top-right", marker: {color: 'black'}});
 
             layout = {
                 title: 'Gráfico Diodo Real',
-                xaxis: { title: 'Tensão (V)', range: [-1, 1], zeroline: true },
-                yaxis: { title: 'Corrente (A)', range: [-1, 2], zeroline: true },
+                xaxis: {title: 'Tensão (V)', range: [-1, 1], zeroline: true},
+                yaxis: {title: 'Corrente (A)', range: [-1, 2], zeroline: true},
                 showlegend: false
             };
             Plotly.newPlot('grafico', dados, layout);
@@ -208,11 +208,11 @@ function desenharGrafico(button) {
                 }
             }
 
-            dados = [{ x: coordenadasx, y: coordenadasy, mode: 'lines', line: { color: 'blue' } }];
+            dados = [{x: coordenadasx, y: coordenadasy, mode: 'lines', line: {color: 'blue'}}];
             layout = {
                 title: 'Gráfico Diodo Zenner',
-                xaxis: { title: 'Tensão (V)', range: [-2, 2], zeroline: true },
-                yaxis: { title: 'Corrente (A)', range: [-2, 2], zeroline: true }
+                xaxis: {title: 'Tensão (V)', range: [-2, 2], zeroline: true},
+                yaxis: {title: 'Corrente (A)', range: [-2, 2], zeroline: true}
             };
             Plotly.newPlot('grafico', dados, layout);
             break;
