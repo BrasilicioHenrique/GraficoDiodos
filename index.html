@@ -28,12 +28,10 @@
     <div id="grafico"></div>
 
     <script>
-        var tensaoZennerSeno = 1.5;
         var tensaoSeno = 2;
         var hzSeno = 22;
-
-        var tensaoDiodo = 0.7;
         var tensaoZenner = -1;
+        var tensaoDiodo = 0.7;
 
         function desenharGrafico(button) {
             const coordenadasx = [];
@@ -131,13 +129,13 @@
                             coordenadasx.push(0);
                             coordenadasy.push(0);
                         }
-                        else if (sinalTensao < 0 && Math.abs(sinalTensao) <= tensaoZennerSeno) {
+                        else if (sinalTensao < 0 && Math.abs(sinalTensao) <= Math.abs(tensaoZenner)) {
                             coordenadasx.push(i);
                             coordenadasy.push(-sinalTensao);
                         } else {
-                            if (Math.abs(sinalTensao) >= tensaoZennerSeno) {
+                            if (Math.abs(sinalTensao) >= Math.abs(tensaoZenner)) {
                                 coordenadasx.push(i);
-                                coordenadasy.push(tensaoZennerSeno);
+                                coordenadasy.push(Math.abs(tensaoZenner));
                             } else {
                                 coordenadasx.push(i);
                                 coordenadasy.push(sinalTensao);
