@@ -1,7 +1,8 @@
 var tensaoSeno = 2;
 var hzSeno = 2;
-var tensaoZenner = -1;
+var tensaoZenner = 1.75;
 var tensaoDiodo = 0.7;
+var descarregaCapacitor = 0.999;
 
 function desenharGrafico(button) {
     const coordenadasx = [];
@@ -33,26 +34,17 @@ function desenharGrafico(button) {
             document.getElementById("texto").innerHTML =
                 `<h2>Gráfico Diodo Retificador</h2> 
                 <p>Em um circuito de CA um único diodo só deixa passar corrente no fluxo certo (diretamente polarizado), então quando o sinal da tensão for negativo, a corrente é 0. É um gráfico de meia onda completa.<br>
-                    Variáveis usadas: tensaoSeno; hzSeno`;
-            for (let i = -100; i <= 100; i += 0.001) {
+                    Variáveis usadas: tensaoSeno; hzSeno</p>`;
+            for (let i = 0; i <= 100; i += 0.001) {
                 let sinalTensao = tensaoSeno * Math.sin(hzSeno * i)
-                if (i < 0) {
-                    coordenadasx.push(0);
-                    coordenadasy.push(0);
-                }
-                else if (sinalTensao < 0) {
-                    coordenadasx.push(i);
-                    coordenadasy.push(0);
-                } else {
-                    coordenadasx.push(i);
-                    coordenadasy.push(sinalTensao);
-                }
+                coordenadasx.push(i);
+                coordenadasy.push(Math.max(0, sinalTensao));
             }
 
             dados = [{x: coordenadasx, y: coordenadasy, mode: 'lines', line: {color: 'blue'}}];
             layout = {
                 title: 'Gráfico de Meia Onda Completa',
-                xaxis: {title: 'X', range: [-2, 10], zeroline: true},
+                xaxis: {title: 'Tempo (s)', range: [-2, 10], zeroline: true},
                 yaxis: {title: 'Tensão (V)', range: [-3, 3], zeroline: true}
             };
             Plotly.newPlot('grafico', dados, layout);
@@ -62,26 +54,40 @@ function desenharGrafico(button) {
             document.getElementById("texto").innerHTML =
                 `<h2>Gráfico Diodo Retificador em Ponte</h2>
                 <p>A estrutura de quatro diodos em ponte permite transformação da tensão em ondas completas<br>
-                    Variáveis usadas: tensaoSeno; hzSeno`;
-            for (let i = -100; i <= 100; i += 0.001) {
-                let sinalTensao = tensaoSeno * Math.sin(hzSeno * i)
-                if (i < 0) {
-                    coordenadasx.push(0);
-                    coordenadasy.push(0);
-                }
-                else if (sinalTensao < 0) {
-                    coordenadasx.push(i);
-                    coordenadasy.push(-sinalTensao);
-                } else {
-                    coordenadasx.push(i);
-                    coordenadasy.push(sinalTensao);
-                }
+                    Variáveis usadas: tensaoSeno; hzSeno</p>`;
+            for (let i = 0; i <= 100; i += 0.001) {
+                let sinalTensao = Math.abs(tensaoSeno * Math.sin(hzSeno * i));
+                coordenadasx.push(i);
+                coordenadasy.push(sinalTensao);
             }
 
             dados = [{x: coordenadasx, y: coordenadasy, mode: 'lines', line: {color: 'blue'}}];
             layout = {
                 title: 'Gráfico de Onda Completa',
-                xaxis: {title: 'X', range: [-2, 10], zeroline: true},
+                xaxis: {title: 'Tempo (s)', range: [-2, 10], zeroline: true},
+                yaxis: {title: 'Tensão (V)', range: [-3, 3], zeroline: true}
+            };
+            Plotly.newPlot('grafico', dados, layout);
+            break;
+
+        case "diodoCapacitor":
+            document.getElementById("texto").innerHTML =
+                `<h2>Gráfico diodo retificador com Capacitor</h2>
+                <p>Gráfico de um diodo retificador em ponte junto também de um capacitor que filtra a tensão, deixando-a mais constante.<br>
+                    Variáveis usadas: tensaoSeno; hzSeno; descarregaCapacitor</p>`;
+            tensaoCapacitor = 0;
+            for (let i = 0; i <= 100; i += 0.001) {
+                let sinalTensao = Math.abs(tensaoSeno * Math.sin(hzSeno * i));
+                tensaoCapacitor = Math.max(sinalTensao, tensaoCapacitor ** descarregaCapacitor);
+                
+                coordenadasx.push(i);
+                coordenadasy.push(tensaoCapacitor);
+            }
+
+            dados = [{x: coordenadasx, y: coordenadasy, mode: 'lines', line: {color: 'blue'}}];
+            layout = {
+                title: 'Gráfico de Onda Completa com Filtro',
+                xaxis: {title: 'Tempo (s)', range: [-2, 10], zeroline: true},
                 yaxis: {title: 'Tensão (V)', range: [-3, 3], zeroline: true}
             };
             Plotly.newPlot('grafico', dados, layout);
@@ -109,6 +115,33 @@ function desenharGrafico(button) {
                         coordenadasx.push(i);
                         coordenadasy.push(sinalTensao);
                     }
+                }
+            }
+
+            dados = [{x: coordenadasx, y: coordenadasy, mode: 'lines', line: {color: 'blue'}}];
+            layout = {
+                title: 'Gráfico de Onda Completa',
+                xaxis: {title: 'X', range: [-2, 10], zeroline: true},
+                yaxis: {title: 'Tensão (V)', range: [-3, 3], zeroline: true}
+            };
+            Plotly.newPlot('grafico', dados, layout);
+            break;
+
+        case "diodoZennerCapacitor":
+            document.getElementById("texto").innerHTML =
+                `<h2>Gráfico Diodo Zenner de onda completa com filtro</h2>
+                <p>Depois dos diodos em ponte, tem um diodo zenner que regula a tensão máxima da onda<br>
+                    Variáveis usadas: tensaoSeno; hzSeno; descarregaCapacitor; tensaoZenner`;
+            tensaoCapacitor = 0;
+            for (let i = 0; i <= 100; i += 0.001) {
+                let sinalTensao = Math.abs(tensaoSeno * Math.sin(hzSeno * i));
+                tensaoCapacitor = Math.max(sinalTensao, tensaoCapacitor ** descarregaCapacitor);
+                if (tensaoCapacitor >= tensaoZenner) {
+                    coordenadasx.push(i);
+                    coordenadasy.push(tensaoZenner);
+                } else {
+                    coordenadasx.push(i);
+                    coordenadasy.push(tensaoCapacitor);
                 }
             }
 
@@ -197,7 +230,7 @@ function desenharGrafico(button) {
                 `<h2>Gráfico Diodo Zenner</h2>
                 <p>Diodo que funciona normalmente quando polarizado diretamente, mas quando é inversamente, ele conduz quando chega no Vz.<br>
                     Variáveis usadas: tensaoZenner`;
-            for (let i = -1.2; i <= 1.2; i += 0.01) {
+            for (let i = -tensaoZenner-1; i <= tensaoZenner+1; i += 0.01) {
                 coordenadasx.push(i);
                 if (i >= 0) {
                     coordenadasy.push(1e-12 * (Math.exp(i / 0.02585) - 1));
@@ -211,8 +244,8 @@ function desenharGrafico(button) {
             dados = [{x: coordenadasx, y: coordenadasy, mode: 'lines', line: {color: 'blue'}}];
             layout = {
                 title: 'Gráfico Diodo Zenner',
-                xaxis: {title: 'Tensão (V)', range: [-2, 2], zeroline: true},
-                yaxis: {title: 'Corrente (A)', range: [-2, 2], zeroline: true}
+                xaxis: {title: 'Tensão (V)', range: [-tensaoZenner-1, tensaoZenner+1], zeroline: true},
+                yaxis: {title: 'Corrente (A)', range: [-tensaoZenner-1, tensaoZenner+1], zeroline: true}
             };
             Plotly.newPlot('grafico', dados, layout);
             break;
