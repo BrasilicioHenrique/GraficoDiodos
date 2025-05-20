@@ -1,3 +1,6 @@
+Site: https://brasiliciohenrique.github.io/GraficoDiodos/
+
+
 Código HTMl e JS para criação de gráficos de diodos.
 
 Trabalho de eletrônica
