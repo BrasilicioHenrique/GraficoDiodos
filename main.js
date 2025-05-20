@@ -147,7 +147,7 @@ function desenharGrafico(button) {
 
             dados = [{x: coordenadasx, y: coordenadasy, mode: 'lines', line: {color: 'blue'}}];
             layout = {
-                title: 'Gráfico de Onda Completa',
+                title: 'Gráfico de Onda Completa filtrada e regulada',
                 xaxis: {title: 'X', range: [-2, 10], zeroline: true},
                 yaxis: {title: 'Tensão (V)', range: [-3, 3], zeroline: true}
             };
