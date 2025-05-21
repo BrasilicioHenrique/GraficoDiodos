@@ -79,7 +79,6 @@ function desenharGrafico(button) {
             for (let i = 0; i <= 100; i += 0.001) {
                 let sinalTensao = Math.abs(tensaoSeno * Math.sin(hzSeno * i));
                 tensaoCapacitor = Math.max(sinalTensao, tensaoCapacitor ** descarregaCapacitor);
-                
                 coordenadasx.push(i);
                 coordenadasy.push(tensaoCapacitor);
             }
@@ -98,24 +97,10 @@ function desenharGrafico(button) {
                 `<h2>Gráfico Diodo Zenner de onda completa</h2>
                 <p>Depois dos diodos em ponte, tem um diodo zenner que regula a tensão máxima da onda<br>
                     Variáveis usadas: tensaoSeno; hzSeno; tensaoZennerSeno`;
-            for (let i = -100; i <= 100; i += 0.001) {
-                let sinalTensao = tensaoSeno * Math.sin(hzSeno * i)
-                if (i < 0) {
-                    coordenadasx.push(0);
-                    coordenadasy.push(0);
-                }
-                else if (sinalTensao < 0 && Math.abs(sinalTensao) <= Math.abs(tensaoZenner)) {
-                    coordenadasx.push(i);
-                    coordenadasy.push(-sinalTensao);
-                } else {
-                    if (Math.abs(sinalTensao) >= Math.abs(tensaoZenner)) {
-                        coordenadasx.push(i);
-                        coordenadasy.push(Math.abs(tensaoZenner));
-                    } else {
-                        coordenadasx.push(i);
-                        coordenadasy.push(sinalTensao);
-                    }
-                }
+            for (let i = 0; i <= 100; i += 0.001) {
+                let sinalTensao = Math.abs(tensaoSeno * Math.sin(hzSeno * i))
+                coordenadasx.push(i);
+                coordenadasy.push(Math.min(sinalTensao, tensaoZenner));
             }
 
             dados = [{x: coordenadasx, y: coordenadasy, mode: 'lines', line: {color: 'blue'}}];
@@ -136,13 +121,8 @@ function desenharGrafico(button) {
             for (let i = 0; i <= 100; i += 0.001) {
                 let sinalTensao = Math.abs(tensaoSeno * Math.sin(hzSeno * i));
                 tensaoCapacitor = Math.max(sinalTensao, tensaoCapacitor ** descarregaCapacitor);
-                if (tensaoCapacitor >= tensaoZenner) {
-                    coordenadasx.push(i);
-                    coordenadasy.push(tensaoZenner);
-                } else {
-                    coordenadasx.push(i);
-                    coordenadasy.push(tensaoCapacitor);
-                }
+                coordenadasx.push(i);
+                coordenadasy.push(Math.min(tensaoCapacitor, tensaoZenner))
             }
 
             dados = [{x: coordenadasx, y: coordenadasy, mode: 'lines', line: {color: 'blue'}}];
