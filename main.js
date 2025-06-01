@@ -1,24 +1,26 @@
 var tensaoSeno = 2;
 var hzSeno = 2;
 var tensaoZenner = 1.75;
-var tensaoDiodo = 0.7;
+var tensaoDiodo = 0.72;
 var descarregaCapacitor = 0.999;
+var resistencia = 1;
+var tensaoFonte = 2;
 
-function desenharGrafico(button) {
+function desenharGrafico(id) {
     const coordenadasx = [];
     const coordenadasy = [];
     let dados = [];
     let layout = [];
 
-    switch (button.id) {
+    switch (id) {
         case "senoide":
             document.getElementById("texto").innerHTML =
                 `<h2>Gráfico de uma Função Seno</h2> 
                 <p>Gráfico que aparece no ociloscópio quando mede tensão / tempo<br>
                     Variáveis usadas: tensaoSeno; hzSeno</p>`;
-            for (let i = -100; i <= 100; i += 0.001) {
-                coordenadasx.push(i);
-                coordenadasy.push(tensaoSeno * Math.sin(hzSeno * i));
+            for (let tempin = -100; tempin <= 100; tempin += 0.001) {
+                coordenadasx.push(tempin);
+                coordenadasy.push(tensaoSeno * Math.sin(hzSeno * tempin));
             }
 
             dados = [{x: coordenadasx, y: coordenadasy, mode: 'lines', line: {color: 'blue'}}];
@@ -35,9 +37,9 @@ function desenharGrafico(button) {
                 `<h2>Gráfico Diodo Retificador</h2> 
                 <p>Em um circuito de CA um único diodo só deixa passar corrente no fluxo certo (diretamente polarizado), então quando o sinal da tensão for negativo, a corrente é 0. É um gráfico de meia onda completa.<br>
                     Variáveis usadas: tensaoSeno; hzSeno</p>`;
-            for (let i = 0; i <= 100; i += 0.001) {
-                let sinalTensao = tensaoSeno * Math.sin(hzSeno * i)
-                coordenadasx.push(i);
+            for (let tempin = 0; tempin <= 100; tempin += 0.001) {
+                let sinalTensao = tensaoSeno * Math.sin(hzSeno * tempin)
+                coordenadasx.push(tempin);
                 coordenadasy.push(Math.max(0, sinalTensao));
             }
 
@@ -55,9 +57,9 @@ function desenharGrafico(button) {
                 `<h2>Gráfico Diodo Retificador em Ponte</h2>
                 <p>A estrutura de quatro diodos em ponte permite transformação da tensão em ondas completas<br>
                     Variáveis usadas: tensaoSeno; hzSeno</p>`;
-            for (let i = 0; i <= 100; i += 0.001) {
-                let sinalTensao = Math.abs(tensaoSeno * Math.sin(hzSeno * i));
-                coordenadasx.push(i);
+            for (let tempin = 0; tempin <= 100; tempin += 0.001) {
+                let sinalTensao = Math.abs(tensaoSeno * Math.sin(hzSeno * tempin));
+                coordenadasx.push(tempin);
                 coordenadasy.push(sinalTensao);
             }
 
@@ -76,10 +78,10 @@ function desenharGrafico(button) {
                 <p>Gráfico de um diodo retificador em ponte junto também de um capacitor que filtra a tensão, deixando-a mais constante.<br>
                     Variáveis usadas: tensaoSeno; hzSeno; descarregaCapacitor</p>`;
             tensaoCapacitor = 0;
-            for (let i = 0; i <= 100; i += 0.001) {
-                let sinalTensao = Math.abs(tensaoSeno * Math.sin(hzSeno * i));
+            for (let tempin = 0; tempin <= 100; tempin += 0.001) {
+                let sinalTensao = Math.abs(tensaoSeno * Math.sin(hzSeno * tempin));
                 tensaoCapacitor = Math.max(sinalTensao, tensaoCapacitor ** descarregaCapacitor);
-                coordenadasx.push(i);
+                coordenadasx.push(tempin);
                 coordenadasy.push(tensaoCapacitor);
             }
 
@@ -97,16 +99,16 @@ function desenharGrafico(button) {
                 `<h2>Gráfico Diodo Zenner de onda completa</h2>
                 <p>Depois dos diodos em ponte, tem um diodo zenner que regula a tensão máxima da onda<br>
                     Variáveis usadas: tensaoSeno; hzSeno; tensaoZennerSeno`;
-            for (let i = 0; i <= 100; i += 0.001) {
-                let sinalTensao = Math.abs(tensaoSeno * Math.sin(hzSeno * i))
-                coordenadasx.push(i);
+            for (let tempin = 0; tempin <= 100; tempin += 0.001) {
+                let sinalTensao = Math.abs(tensaoSeno * Math.sin(hzSeno * tempin))
+                coordenadasx.push(tempin);
                 coordenadasy.push(Math.min(sinalTensao, tensaoZenner));
             }
 
             dados = [{x: coordenadasx, y: coordenadasy, mode: 'lines', line: {color: 'blue'}}];
             layout = {
                 title: 'Gráfico de Onda Completa com regulador',
-                xaxis: {title: 'X', range: [-2, 10], zeroline: true},
+                xaxis: {title: 'Tempo (s)', range: [-2, 10], zeroline: true},
                 yaxis: {title: 'Tensão (V)', range: [-3, 3], zeroline: true}
             };
             Plotly.newPlot('grafico', dados, layout);
@@ -118,17 +120,17 @@ function desenharGrafico(button) {
                 <p>Depois dos diodos em ponte, tem um diodo zenner que regula a tensão máxima da onda<br>
                     Variáveis usadas: tensaoSeno; hzSeno; descarregaCapacitor; tensaoZenner`;
             tensaoCapacitor = 0;
-            for (let i = 0; i <= 100; i += 0.001) {
-                let sinalTensao = Math.abs(tensaoSeno * Math.sin(hzSeno * i));
+            for (let tempin = 0; tempin <= 100; tempin += 0.001) {
+                let sinalTensao = Math.abs(tensaoSeno * Math.sin(hzSeno * tempin));
                 tensaoCapacitor = Math.max(sinalTensao, tensaoCapacitor ** descarregaCapacitor);
-                coordenadasx.push(i);
+                coordenadasx.push(tempin);
                 coordenadasy.push(Math.min(tensaoCapacitor, tensaoZenner))
             }
 
             dados = [{x: coordenadasx, y: coordenadasy, mode: 'lines', line: {color: 'blue'}}];
             layout = {
                 title: 'Gráfico de Onda Completa filtrada e regulada',
-                xaxis: {title: 'X', range: [-2, 10], zeroline: true},
+                xaxis: {title: 'Tempo (s)', range: [-2, 10], zeroline: true},
                 yaxis: {title: 'Tensão (V)', range: [-3, 3], zeroline: true}
             };
             Plotly.newPlot('grafico', dados, layout);
@@ -139,21 +141,22 @@ function desenharGrafico(button) {
         case "ideal":
             document.getElementById("texto").innerHTML =
                 `<h2>Gráfico Diodo Ideal</h2> 
-                <p>Não conduz com tensão menor que 0, mas a partir de 0V, ele conduz uma corrente constante</p>`;
-            for (let i = -1; i <= 10; i += 0.01) {
-                if (i <= 0) {
-                    coordenadasx.push(i);
+                <p>Não conduz com tensão menor que 0, mas a partir de 0V, ele conduz uma corrente constante<br>
+                    Variáveis usadas: tensaoFonte</p>`;
+            for (let voltin = -1; voltin <= tensaoFonte; voltin += 0.01) {
+                if (voltin <= 0) {
+                    coordenadasx.push(voltin);
                     coordenadasy.push(0);
                 } else {
                     coordenadasx.push(0);
-                    coordenadasy.push(i);
+                    coordenadasy.push(voltin);
                 }
             }
 
             dados = [{x: coordenadasx, y: coordenadasy, mode: 'lines', line: {color: 'blue'}}];
             layout = {
                 title: "Gráfico Diodo Ideal",
-                xaxis: {title: "Tensão (V)", range: [-1, 1], zeroline: true},
+                xaxis: {title: "Tensão (V)", range: [-0.5, 1], zeroline: true},
                 yaxis: {title: "Corrente (A)", range: [-1, 2], zeroline: true}
             };
             Plotly.newPlot('grafico', dados, layout);
@@ -162,22 +165,22 @@ function desenharGrafico(button) {
         case "diodo":
             document.getElementById("texto").innerHTML =
                 `<h2>Gráfico Diodo como fonte</h2>
-                <p>Não conduz com tensão menor que 0,7V, mas a partir disso, ele conduz uma corrente constante<br>
-                    Variáveis usadas: tensaoDiodo`;
-            for (let i = -1; i <= 10; i += 0.01) {
-                if (i < tensaoDiodo) {
-                    coordenadasx.push(i);
+                <p>Não conduz com tensão menor que 0,72V, mas a partir disso, ele conduz uma corrente constante<br>
+                    Variáveis usadas: tensaoDiodo, tensaoFonte</p>`;
+            for (let voltin = -1; voltin <= tensaoFonte; voltin += 0.01) {
+                if (voltin < tensaoDiodo) {
+                    coordenadasx.push(voltin);
                     coordenadasy.push(0);
                 } else {
                     coordenadasx.push(tensaoDiodo);
-                    coordenadasy.push(i);
+                    coordenadasy.push(voltin);
                 }
             }
 
             dados = [{x: coordenadasx, y: coordenadasy, mode: 'lines', line: {color: 'blue'}}];
             layout = {
                 title: "Gráfico Diodo",
-                xaxis: {title: "Tensão (V)", range: [-1, 1], zeroline: true},
+                xaxis: {title: "Tensão (V)", range: [-0.5, 1], zeroline: true},
                 yaxis: {title: "Corrente (A)", range: [-1, 2], zeroline: true}
             };
             Plotly.newPlot('grafico', dados, layout);
@@ -186,19 +189,20 @@ function desenharGrafico(button) {
         case "real":
             document.getElementById("texto").innerHTML =
                 `<h2>Gráfico Diodo Real</h2>
-                <p>Conduz muito pouco até que chegue no seu ponto Q (0,7V), a partir desse ponto, ele conduz normalmente</p>`;
-            for (let i = -1; i <= 1; i += 0.01) {
-                coordenadasx.push(i);
-                coordenadasy.push(1e-12 * (Math.exp(i / 0.02585) - 1));
+                <p>Conduz muito pouco até que chegue no seu ponto Q, a partir desse ponto, ele conduz normalmente.<br>
+                Variáveis usadas: tensaoDiodo, tensaoFonte, resistencia</p>`;
+            for (let voltin = -1; voltin <= tensaoFonte; voltin += 0.01) {
+                coordenadasx.push(voltin);
+                coordenadasy.push(1e-12 * (Math.exp(voltin / 0.02585) - 1));
             }
 
             dados = [{x: coordenadasx, y: coordenadasy, mode: 'lines', line: {color: 'blue'}}];
-            dados.push({x: [0, 0.7008, 1], y: [2, 0.5985, 0], mode: 'lines', line: { color: 'black'}});
-            dados.push({x: [0.7008], y: [0.5985], mode: "markers+text", text: "Q", textposition: "top-right", marker: {color: 'black'}});
+            dados.push({x: [0, tensaoFonte], y: [tensaoFonte/resistencia, 0], mode: 'lines', line: {color: 'black'}});
+            dados.push({x: [tensaoDiodo], y: [(tensaoFonte-tensaoDiodo)/resistencia], mode: "markers+text", text: "Q", textposition: "top-right", marker: {color: 'black'}});
 
             layout = {
                 title: 'Gráfico Diodo Real',
-                xaxis: {title: 'Tensão (V)', range: [-1, 1], zeroline: true},
+                xaxis: {title: 'Tensão (V)', range: [-0.5, 1], zeroline: true},
                 yaxis: {title: 'Corrente (A)', range: [-1, 2], zeroline: true},
                 showlegend: false
             };
@@ -210,12 +214,12 @@ function desenharGrafico(button) {
                 `<h2>Gráfico Diodo Zenner</h2>
                 <p>Diodo que funciona normalmente quando polarizado diretamente, mas quando é inversamente, ele conduz quando chega no Vz.<br>
                     Variáveis usadas: tensaoZenner`;
-            for (let i = -tensaoZenner-1; i <= tensaoZenner+1; i += 0.01) {
-                coordenadasx.push(i);
-                if (i >= 0) {
-                    coordenadasy.push(1e-12 * (Math.exp(i / 0.02585) - 1));
-                } else if (i <= tensaoZenner) {
-                    coordenadasy.push(-1e-3 * (Math.exp((Math.abs(i) - Math.abs(tensaoZenner)) / 0.01) - 1));
+            for (let voltin = -tensaoZenner-1; voltin <= tensaoZenner+1; voltin += 0.01) {
+                coordenadasx.push(voltin);
+                if (voltin >= 0) {
+                    coordenadasy.push(1e-12 * (Math.exp(voltin / 0.02585) - 1));
+                } else if (voltin <= tensaoZenner) {
+                    coordenadasy.push(-1e-3 * (Math.exp((Math.abs(voltin) - Math.abs(tensaoZenner)) / 0.01) - 1));
                 } else {
                     coordenadasy.push(1e-12);
                 }

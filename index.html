@@ -10,18 +10,18 @@
     <h1>Clique nos botões para mostrar os gráficos!</h1>
 
     <h3>Gráficos Tempo / Tensão</h3>
-    <button type="button" class="btn btn-secondary" id="senoide" onclick="desenharGrafico(this)">Gráfico de função senoidal</button>
-    <button type="button" class="btn btn-secondary" id="retificador" onclick="desenharGrafico(this)">Gráfico Diodo Retificador em CA</button>
-    <button type="button" class="btn btn-secondary" id="ponte" onclick="desenharGrafico(this)">Gráfico Diodo Retificador em ponte</button> <br><br>
-    <button type="button" class="btn btn-secondary" id="diodoCapacitor"  onclick="desenharGrafico(this)">Gráfico de diodo retificador com Capacitor</button>
-    <button type="button" class="btn btn-secondary" id="diodoZenner"  onclick="desenharGrafico(this)">Gráfico do Diodo Zenner em CA</button>
-    <button type="button" class="btn btn-secondary" id="diodoZennerCapacitor"  onclick="desenharGrafico(this)">Gráfico do Diodo Zenner com Capacitor</button>
+    <button type="button" class="btn btn-secondary" id="senoide" onclick="desenharGrafico(this.id)">Gráfico de função senoidal</button>
+    <button type="button" class="btn btn-secondary" id="retificador" onclick="desenharGrafico(this.id)">Gráfico Diodo Retificador em CA</button>
+    <button type="button" class="btn btn-secondary" id="ponte" onclick="desenharGrafico(this.id)">Gráfico Diodo Retificador em ponte</button> <br><br>
+    <button type="button" class="btn btn-secondary" id="diodoCapacitor"  onclick="desenharGrafico(this.id)">Gráfico de diodo retificador com Capacitor</button>
+    <button type="button" class="btn btn-secondary" id="diodoZenner"  onclick="desenharGrafico(this.id)">Gráfico do Diodo Zenner em CA</button>
+    <button type="button" class="btn btn-secondary" id="diodoZennerCapacitor"  onclick="desenharGrafico(this.id)">Gráfico do Diodo Zenner com Capacitor</button>
 
     <h3>Gráficos Tensão / Corrente</h3>
-    <button type="button" class="btn btn-secondary" id="ideal" onclick="desenharGrafico(this)">Gráfico Diodo Ideal (fio)</button>
-    <button type="button" class="btn btn-secondary" id="diodo" onclick="desenharGrafico(this)">Gráfico Diodo 0,7 (barreira potencial de 0,7V)</button> <br><br>
-    <button type="button" class="btn btn-secondary" id="real" onclick="desenharGrafico(this)">Gráfico Diodo Real (curva característica do diodo)</button>
-    <button type="button" class="btn btn-secondary" id="zenner" onclick="desenharGrafico(this)">Gráfico Diodo Zenner</button>
+    <button type="button" class="btn btn-secondary" id="ideal" onclick="desenharGrafico(this.id)">Gráfico Diodo Ideal (fio)</button>
+    <button type="button" class="btn btn-secondary" id="diodo" onclick="desenharGrafico(this.id)">Gráfico Diodo 0,7 (barreira potencial de 0,7V)</button> <br><br>
+    <button type="button" class="btn btn-secondary" id="real" onclick="desenharGrafico(this.id)">Gráfico Diodo Real (curva característica do diodo)</button>
+    <button type="button" class="btn btn-secondary" id="zenner" onclick="desenharGrafico(this.id)">Gráfico Diodo Zenner</button>
     
     <div id="texto"></div>
     
