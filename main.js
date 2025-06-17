@@ -190,16 +190,13 @@ function desenharGrafico(id) {
             document.getElementById("texto").innerHTML =
                 `<h2>Gráfico Diodo Real</h2>
                 <p>Conduz muito pouco até que chegue no seu ponto Q, a partir desse ponto, ele conduz normalmente.<br>
-                Variáveis usadas: tensaoDiodo, tensaoFonte, resistencia</p>`;
+                Variáveis usadas: tensaoFonte</p>`;
             for (let voltin = -1; voltin <= tensaoFonte; voltin += 0.01) {
                 coordenadasx.push(voltin);
                 coordenadasy.push(1e-12 * (Math.exp(voltin / 0.02585) - 1));
             }
 
             dados = [{x: coordenadasx, y: coordenadasy, mode: 'lines', line: {color: 'blue'}}];
-            dados.push({x: [0, tensaoFonte], y: [tensaoFonte/resistencia, 0], mode: 'lines', line: {color: 'black'}});
-            dados.push({x: [tensaoDiodo], y: [(tensaoFonte-tensaoDiodo)/resistencia], mode: "markers+text", text: "Q", textposition: "top-right", marker: {color: 'black'}});
-
             layout = {
                 title: 'Gráfico Diodo Real',
                 xaxis: {title: 'Tensão (V)', range: [-0.5, 1], zeroline: true},
